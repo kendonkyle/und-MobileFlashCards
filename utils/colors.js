@@ -1,0 +1,14 @@
+// export const primary = '#ff5722';
+// export const primaryLight = '#ff8a50';
+// export const primaryDark = '#c41c00';
+// export const secondary = '#8bc34a';
+// export const secondaryLight = '#bef67a';
+// export const secondaryDark = '#5a9216';
+export const primary = '#4db6ac';
+export const primaryLight = '#82e9de';
+export const primaryDark = '#00867d';
+export const secondary = '#6d4c41';
+export const secondaryLight = '#9c786c';
+export const secondaryDark = '#40241a';
+export const white = '#fff'
+export const black = '#000'
