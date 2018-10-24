@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, TextInput, Text, StyleSheet, Platform, Button } from 'react-native';
+import { View, TextInput, Text, StyleSheet, Platform, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { primary, secondary } from '../utils/colors';
 import TextButton from './TextButton';
 import OpacityButton from './OpacityButton';
@@ -30,19 +30,19 @@ class AddDeck extends Component {
   }
   render() {
     return (
-      <View style={{flex: 1, alignContent: 'center'}}>
-
+      <ScrollView>
+      <KeyboardAvoidingView style={{flex: 1, alignContent: 'center'}} behavior="padding" enabled>
         <Text style={styles.headingText}>Create A New Deck</Text>
         <Text style={styles.subheadingText} >Please Type a name for you new deck</Text>
-        <TextInput style={styles.decknameInput} value={this.state.deckname} onChangeText={(text) => this.setState({deckname: text})} />
+          <TextInput style={styles.decknameInput} value={this.state.deckname} onChangeText={(text) => this.setState({deckname: text})} />
         <OpacityButton 
           onPress={()=>{
             alert("Creating new Deck");
           }} >
           Add Deck
           </OpacityButton>
-
-      </View>
+      </KeyboardAvoidingView>
+      </ScrollView>
     )
   }
 }

@@ -1,29 +1,54 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Platform, TouchableOpacity, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 import DeckListItem from './DeckListItem';
-
+import { connect } from 'react-redux';
+import { getDecks } from '../utils/helpers';
+import { receiveDecks } from '../actions';
+import { AppLoading } from 'expo';
 
 class DeckList extends Component {
-
-  renderItem = ({item}) => (
-    <DeckListItem deckName={item.title} cardCount={5} />
-  )
-
-  onPress = () => {
-
+  state = {
+    ready: false
   }
 
+  componentDidMount () {
+    const { dispatch } = this.props
+
+    getDecks()
+      .then((decks) => dispatch(receiveDecks(decks)))
+      .then(() => this.setState(() => ({ready: true})));
+    }
+
+  renderItem = ({item}) => (
+    <DeckListItem deckName={item.title} cardCount={5} 
+      onPress={() => { alert(item.key); this.props.navigation.navigate(
+          'ViewDeck',
+          { deckId: item.key },);} }
+        // () => this.props.navigation.navigate(
+        //   'ViewDeck',
+        //   { deck: item },
+        // )} 
+    />
+  );
+  
+  // onPress = (item) => {
+  //   this.props.navigation.navigate(
+  //     'ViewDeck',
+  //     { deck: item },
+  // )};
+
   render() {
+    const { decks } = this.props;
+    const { ready } = this.state
+
+    if (ready === false) {
+      return <AppLoading />
+    }
+
     return (
       <View style={{flex: 1}}>
       <FlatList
-        data={
-          [
-            { key: 'React', title: 'React', questions:[1,2,3,4]},
-            { key: 'React-Native', title: 'React-Native', questions:[1,2,3,4,6,7,8,9]},
-            { key: 'PHP', title: 'PHP', questions:[1,2,3,4]},
-            {key: 'Maths', title:'Maths', questions:[6,6,7,7,8,8]}
-          ]}
+        data={ decks }
         renderItem={this.renderItem}
         
       />
@@ -32,4 +57,19 @@ class DeckList extends Component {
   }
 }
 
-export default DeckList;
+function mapstateToProps(decks) {
+  //TODO format decks
+  let data = [];
+  console.log("in mapstatetoprops");
+  if(typeof decks !== 'undefined')  {
+    console.log(JSON.stringify(decks));
+    Object.keys(decks).forEach((key) => {
+      data.push({ key, ...decks[key] });
+    });
+  }
+  return {
+    decks: data
+  };
+}
+
+export default connect(mapstateToProps)(DeckList);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TextInput, Text, StyleSheet, Platform, Button } from 'react-native';
+import { View, TextInput, Text, StyleSheet, Platform, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { primary, secondary } from '../utils/colors';
 import OpacityButton from './OpacityButton';
 
@@ -30,8 +30,9 @@ class AddCard extends Component {
   }
   render() {
     return (
-      <View style={{flex: 1, alignContent: 'center'}}>
-
+      <ScrollView>
+      <KeyboardAvoidingView style={{flex: 1}}  behavior="padding" enabled>
+      {/* <View style={{flex: 1, alignContent: 'center'}}> */}
         <Text style={styles.headingText}>Add A Card To Deck</Text>
         <Text style={styles.subheadingText} >Question</Text>
         <TextInput style={styles.qaInput} value={this.state.question} onChangeText={(text) => this.setState({question: text})} />
@@ -43,8 +44,10 @@ class AddCard extends Component {
           }} >
           Add Card to Deck
           </OpacityButton>
-
-      </View>
+          <View style={{ height: 10 }} />
+      {/* </View> */}
+      </KeyboardAvoidingView>
+      </ScrollView>
     )
   }
 }
