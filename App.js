@@ -10,7 +10,7 @@ import DeckList from './components/DeckList';
 import ViewDeck from './components/ViewDeck';
 import AddDeck from './components/AddDeck';
 import AddCard from './components/AddCard';
-import Demo from './components/Demo';
+import Quiz from './components/Quiz';
 import { Constants } from 'expo';
 
 const Tabs = createBottomTabNavigator({
@@ -28,14 +28,13 @@ const Tabs = createBottomTabNavigator({
       tabBarIcon: ({ tintColor }) => <Ionicons name='ios-list-box' size={30} color={tintColor} />
     }
   },
-  AddCard: {
-    screen: AddCard,
-      navigationOptions: {
-        title: 'AddCard',
-        tabBarIcon: ({ tintColor }) => <Ionicons name='ios-list-box' size={30} color={tintColor} />
-      }
-    },
-   
+  // AddCard: {
+  //   screen: AddCard,
+  //     navigationOptions: {
+  //       title: 'AddCard',
+  //       tabBarIcon: ({ tintColor }) => <Ionicons name='ios-list-box' size={30} color={tintColor} />
+  //     }
+  //   },
   AddDeck: {
     screen: AddDeck,
     navigationOptions: {
@@ -74,14 +73,18 @@ const MainNavigator = createStackNavigator({
     screen: ViewDeck,
     navigationOptions: {
       title: 'View Deck',
-      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-list-box' size={30} color={tintColor} />
     }
   },
   AddCard: {
     screen: AddCard,
     navigationOptions: {
       title: 'Add Card',
-      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-list-box' size={30} color={tintColor} />
+    }
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      title: 'Quiz',
     }
   },
 });

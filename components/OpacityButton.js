@@ -5,8 +5,8 @@ import { secondary, white } from '../utils/colors'
 export default function OpacityButton ({ children, onPress, style = {} }) {
   return (
     <TouchableOpacity style={{flex:1}} onPress={onPress}>
-      <View style={styles.button} >
-        <Text style={[styles.text, style]}>{children}</Text>
+      <View style={[styles.button, style]} >
+        <Text style={styles.text}>{children}</Text>
       </View>
     </TouchableOpacity>
   )
@@ -14,7 +14,7 @@ export default function OpacityButton ({ children, onPress, style = {} }) {
 
 const styles = StyleSheet.create({
   button: {
-    width: "90%",
+    // width: "90%",
     margin: "5%",
     // marginBottom: 30,
     alignItems: "center",

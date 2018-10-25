@@ -42,7 +42,7 @@ export default function DeckListItem({deckName, cardCount, onPress}) {
     <TouchableOpacity onPress={onPress}>
       <View style={styles.item}>
         <Text style={styles.headingText}>{deckName}</Text>
-        <Text style={styles.subheadingText}>{cardCount} Cards</Text>
+        <Text style={styles.subheadingText}>{cardCount} Card{cardCount !== 1 && 's'}</Text>
       </View>
       </TouchableOpacity>
     

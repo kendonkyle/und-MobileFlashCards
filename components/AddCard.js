@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { View, TextInput, Text, StyleSheet, Platform, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { connect } from 'react-redux';
 import { primary, secondary } from '../utils/colors';
 import OpacityButton from './OpacityButton';
+import { addCardToDeck } from '../utils/helpers';
+import { addQuestion } from '../actions';
 
 const styles = StyleSheet.create({
   headingText: {
@@ -19,7 +22,7 @@ const styles = StyleSheet.create({
   },
   qaInput: {
     margin: 12,
-    fontSize: 24,
+    fontSize: 14,
   }
 });
 
@@ -28,6 +31,16 @@ class AddCard extends Component {
     question: "",
     answer: ""
   }
+
+  submitAddCard = () => {
+    const { deckId } = this.props;
+    if(this.state.question.length > 2 && this.state.answer.length > 2) {
+      this.props.dispatch(addQuestion(deckId, this.state));
+      addCardToDeck(deckId, this.state);
+      this.props.navigation.goBack();
+    }
+  }
+
   render() {
     return (
       <ScrollView>
@@ -39,9 +52,7 @@ class AddCard extends Component {
         <Text style={styles.subheadingText} >Answer</Text>
         <TextInput style={styles.qaInput} value={this.state.answer} onChangeText={(text) => this.setState({answer: text})} />
         <OpacityButton 
-          onPress={()=>{
-            alert("Creating new Question");
-          }} >
+          onPress={this.submitAddCard} >
           Add Card to Deck
           </OpacityButton>
           <View style={{ height: 10 }} />
@@ -52,4 +63,11 @@ class AddCard extends Component {
   }
 }
 
-export default AddCard;
+function mapStateToProps( state, { navigation }) {
+  const { deckId } = navigation.state.params;
+  return {
+    deckId,
+  };
+}
+
+export default connect(mapStateToProps)(AddCard);

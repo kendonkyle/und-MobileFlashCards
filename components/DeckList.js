@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import DeckListItem from './DeckListItem';
 import { connect } from 'react-redux';
 import { getDecks } from '../utils/helpers';
@@ -13,21 +13,16 @@ class DeckList extends Component {
 
   componentDidMount () {
     const { dispatch } = this.props
-
     getDecks()
       .then((decks) => dispatch(receiveDecks(decks)))
       .then(() => this.setState(() => ({ready: true})));
     }
 
   renderItem = ({item}) => (
-    <DeckListItem deckName={item.title} cardCount={5} 
-      onPress={() => { alert(item.key); this.props.navigation.navigate(
+    <DeckListItem deckName={item.title} cardCount={item.questions.length} 
+      onPress={() => {this.props.navigation.navigate(
           'ViewDeck',
           { deckId: item.key },);} }
-        // () => this.props.navigation.navigate(
-        //   'ViewDeck',
-        //   { deck: item },
-        // )} 
     />
   );
   
@@ -44,13 +39,17 @@ class DeckList extends Component {
     if (ready === false) {
       return <AppLoading />
     }
-
+    if(decks.length < 1) {
+      return (
+        <View style={{flex:1, alignContent:'center', alignItems: 'center'}}>
+          <Text>Hello.. Please Add a Deck First</Text>
+        </View>);
+    }
     return (
       <View style={{flex: 1}}>
       <FlatList
         data={ decks }
         renderItem={this.renderItem}
-        
       />
       </View>
     )
