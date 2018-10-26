@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Animated } from 'react-native';
 import OpacityButton from './OpacityButton';
 import { connect } from 'react-redux';
 import TextButton from './TextButton';
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 
 const styles = StyleSheet.create({
@@ -27,6 +28,7 @@ class Quiz extends Component {
     this.setState((state)=>({
       question: state.question + 1,
       score: correct ? state.score + 1 : state.score,
+      showAnswer: false
     }));
   }
 
@@ -47,10 +49,13 @@ class Quiz extends Component {
     const { deck } = this.props;
     
     if(question > deck.questions.length-1) {
+      clearLocalNotification().then(setLocalNotification);
       return (
         <View style={{ flex:1, alignContent: 'center' }}>
-          <Text style={styles.headingText}> Flashcards Complete </Text>
-          <Text style={styles.headingText}> Your Score was {score} out of {deck.questions.length}</Text>
+          <View style={{flex:3}}>
+            <Text style={styles.headingText}> Flashcards Complete </Text>
+            <Text style={styles.headingText}> Your Score was {score} out of {deck.questions.length}</Text>
+          </View>
           <View style={{ flex:1 }}>
             <OpacityButton style={{backgroundColor: "#4AB269"}} onPress={this.restartQuiz}>
               Restart Quiz
@@ -88,12 +93,12 @@ class Quiz extends Component {
       </View>
         <View style={{ flex:1 }}>
         <OpacityButton style={{backgroundColor: "#4AB269"}} onPress={() => this.nextClick(true)}>
-          Right
+          Correct
         </OpacityButton>
         </View>
         <View style={{ flex:1 }}>
         <OpacityButton style={{backgroundColor: "#C75148"}} onPress={() => this.nextClick(false)}>
-          Wrong
+          Wrong!!
         </OpacityButton>
         </View>
       </View>

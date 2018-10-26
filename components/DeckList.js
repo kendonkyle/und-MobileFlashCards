@@ -57,11 +57,9 @@ class DeckList extends Component {
 }
 
 function mapstateToProps(decks) {
-  //TODO format decks
   let data = [];
-  console.log("in mapstatetoprops");
   if(typeof decks !== 'undefined')  {
-    console.log(JSON.stringify(decks));
+    // console.log(JSON.stringify(decks)); 
     Object.keys(decks).forEach((key) => {
       data.push({ key, ...decks[key] });
     });

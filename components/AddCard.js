@@ -23,6 +23,14 @@ const styles = StyleSheet.create({
   qaInput: {
     margin: 12,
     fontSize: 14,
+    padding: 4,
+  },
+  qaIosInput: {
+    margin: 12,
+    fontSize: 14,
+    padding: 4,
+    borderBottomColor: primary,
+    borderBottomWidth: 1
   }
 });
 
@@ -48,9 +56,15 @@ class AddCard extends Component {
       {/* <View style={{flex: 1, alignContent: 'center'}}> */}
         <Text style={styles.headingText}>Add A Card To Deck</Text>
         <Text style={styles.subheadingText} >Question</Text>
-        <TextInput style={styles.qaInput} value={this.state.question} onChangeText={(text) => this.setState({question: text})} />
+        <TextInput 
+          style={Platform.OS === 'ios' ? styles.qaIosInput : styles.qaInput}
+          value={this.state.question} onChangeText={(text) => this.setState({question: text})}
+        />
         <Text style={styles.subheadingText} >Answer</Text>
-        <TextInput style={styles.qaInput} value={this.state.answer} onChangeText={(text) => this.setState({answer: text})} />
+        <TextInput 
+          style={Platform.OS === 'ios' ? styles.qaIosInput : styles.qaInput} 
+          value={this.state.answer} onChangeText={(text) => this.setState({answer: text})}
+        />
         <OpacityButton 
           onPress={this.submitAddCard} >
           Add Card to Deck

@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   item: {
     flex: 1,
     backgroundColor: white,
-    borderRadius: Platform.OS === 'ios' ? 16 : 2,
+    borderRadius: Platform.OS === 'ios' ? 16 : 6,
     padding: 20,
     marginLeft: 10,
     marginRight: 10,
